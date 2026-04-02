@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Varun & Supritha — Wedding Invitation</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --beige:     #f8f9f4;
+    --beige-mid: #eef2e8;
+    --beige-dark:#d4ddc8;
+    --red:       #2d5a27;
+    --red-light: #3d7a35;
+    --red-muted: #a8c4a0;
+    --gold:      #c8a84b;
+    --text:      #1e2e1a;
+    --text-light:#6a7d63;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--beige);
+    color: var(--text);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; opacity: .35;
+  }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+    padding: 60px 24px; text-align: center;
+  }
+
+  .ring {
+    position: absolute; border-radius: 50%;
+    border: 1px solid var(--red-muted);
+    opacity: .18; pointer-events: none;
+    animation: pulse 8s ease-in-out infinite;
+  }
+  .ring:nth-child(1) { width: 600px; height: 600px; animation-delay: 0s; }
+  .ring:nth-child(2) { width: 900px; height: 900px; animation-delay: 2s; }
+  .ring:nth-child(3) { width: 1200px; height: 1200px; animation-delay: 4s; }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: .18; }
+    50%       { transform: scale(1.04); opacity: .08; }
+  }
+
+  /* ── FALLING HEARTS ── */
+  .heart {
+    position: absolute; top: -50px;
+    pointer-events: none; opacity: 0;
+    animation: fallHeart linear infinite;
+    color: var(--red);
+    font-size: 14px;
+    filter: drop-shadow(0 2px 4px rgba(45,90,61,.2));
+  }
+  @keyframes fallHeart {
+    0%   { transform: translateY(0) rotate(-15deg) scale(0.8); opacity: 0; }
+    8%   { opacity: .7; }
+    50%  { transform: translateY(55vh) rotate(15deg) scale(1); opacity: .5; }
+    92%  { opacity: .3; }
+    100% { transform: translateY(115vh) rotate(-10deg) scale(0.9); opacity: 0; }
+  }
+
+  .hero-tag {
+    font-size: 11px; letter-spacing: 5px;
+    text-transform: uppercase; color: var(--red);
+    margin-bottom: 28px;
+    opacity: 0; animation: fadeUp .8s .2s forwards;
+  }
+  .hero-names {
+    font-family: 'Libre Baskerville', 'Baskerville', 'Baskerville Old Face', serif;
+    font-size: clamp(58px, 10vw, 118px);
+    font-weight: 400; line-height: 1; color: var(--text);
+    opacity: 0; animation: fadeUp .9s .5s forwards;
+    letter-spacing: -1px;
+  }
+  .hero-amp {
+    display: block;
+    font-family: 'Libre Baskerville', 'Baskerville', serif;
+    font-style: italic; font-size: .48em;
+    color: var(--gold); line-height: 1.5; letter-spacing: 2px;
+  }
+  .hero-divider {
+    width: 80px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 32px auto;
+    opacity: 0; animation: fadeUp .8s .8s forwards;
+  }
+  .hero-date {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(18px, 3vw, 26px);
+    font-weight: 400; letter-spacing: 3px; color: var(--gold);
+    opacity: 0; animation: fadeUp .8s 1s forwards;
+  }
+  .hero-venue {
+    font-size: 12px; letter-spacing: 4px;
+    text-transform: uppercase; color: var(--text-light);
+    margin-top: 12px;
+    opacity: 0; animation: fadeUp .8s 1.2s forwards;
+  }
+  .scroll-hint {
+    position: absolute; bottom: 36px;
+    display: flex; flex-direction: column;
+    align-items: center; gap: 8px;
+    font-size: 10px; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--text-light);
+    opacity: 0; animation: fadeUp .8s 2s forwards;
+  }
+  .scroll-line {
+    width: 1px; height: 50px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: lineGrow 2s 2.5s ease-in-out infinite;
+  }
+  @keyframes lineGrow {
+    0%, 100% { transform: scaleY(0); transform-origin: top; }
+    50%       { transform: scaleY(1); transform-origin: top; }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SHARED SECTIONS ── */
+  section {
+    position: relative; z-index: 1;
+    padding: 100px 24px;
+    max-width: 860px; margin: 0 auto;
+    text-align: center;
+  }
+  .section-label {
+    font-size: 10px; letter-spacing: 5px;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 20px;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 6vw, 60px);
+    font-weight: 300; line-height: 1.15; margin-bottom: 24px;
+  }
+  .thin-line {
+    width: 60px; height: 1px;
+    background: var(--gold); margin: 0 auto 40px; opacity: .7;
+  }
+
+  /* ── DATE CARDS ── */
+  .date-cards {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    justify-content: center; margin-top: 40px;
+  }
+  .date-card {
+    background: #fff; border: 1px solid var(--beige-dark);
+    border-radius: 6px; padding: 28px 32px;
+    min-width: 140px; text-align: center;
+    box-shadow: 0 8px 30px rgba(45,90,61,.06);
+    opacity: 0; transform: translateY(30px) scale(.95);
+    transition: opacity .6s, transform .6s, box-shadow .3s;
+  }
+  .date-card.visible {
+    opacity: 1; transform: none;
+    box-shadow: 0 16px 50px rgba(45,90,61,.1);
+  }
+  .date-card:hover { transform: translateY(-4px); box-shadow: 0 24px 60px rgba(45,90,61,.14); }
+  .date-card:nth-child(1) { transition-delay: 0s; }
+  .date-card:nth-child(2) { transition-delay: .12s; }
+  .date-card:nth-child(3) { transition-delay: .24s; }
+  .date-card:nth-child(4) { transition-delay: .36s; }
+  .dc-num {
+    font-family: 'Libre Baskerville', 'Baskerville', serif;
+    font-size: 50px; font-weight: 400; color: var(--gold); line-height: 1; display: block;
+  }
+  .dc-unit {
+    font-size: 9px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--text-light); margin-top: 4px; display: block;
+  }
+  .dc-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px; font-style: italic; color: var(--text); margin-top: 6px; display: block;
+  }
+
+  /* ── COUNTDOWN ── */
+  #countdown-section {
+    background: #1e2e1a; max-width: 100%; padding: 80px 24px;
+  }
+  #countdown-section .section-label { color: var(--gold); }
+  #countdown-section .section-title { color: #ffffff; }
+  .countdown-grid {
+    display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 40px;
+  }
+  .cd-box {
+    background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.2);
+    border-radius: 4px; padding: 28px 36px; min-width: 110px; text-align: center;
+    backdrop-filter: blur(4px); transition: transform .3s;
+  }
+  .cd-box:hover { transform: translateY(-4px); }
+  .cd-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 62px; font-weight: 300; color: var(--gold); line-height: 1; display: block;
+  }
+  .cd-label {
+    font-size: 9px; letter-spacing: 4px; text-transform: uppercase;
+    color: rgba(255,255,255,.6); margin-top: 8px; display: block;
+  }
+
+  /* ── VENUE ── */
+  .venue-card {
+    max-width: 380px; margin: 0 auto; background: #fff;
+    border: 1px solid var(--beige-dark); border-radius: 6px; padding: 48px 40px;
+    text-align: center; box-shadow: 0 12px 40px rgba(45,90,61,.07); transition: box-shadow .3s;
+  }
+  .venue-card:hover { box-shadow: 0 20px 60px rgba(45,90,61,.12); }
+  .venue-icon {
+    font-size: 22px; color: var(--red); margin-bottom: 20px; display: block;
+    animation: spinGlow 4s ease-in-out infinite;
+  }
+  @keyframes spinGlow {
+    0%, 100% { transform: rotate(0deg) scale(1); color: var(--red); }
+    50%       { transform: rotate(180deg) scale(1.2); color: var(--gold); }
+  }
+  .venue-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px; font-weight: 300; color: var(--text); margin-bottom: 12px;
+  }
+  .venue-address {
+    font-size: 13px; letter-spacing: 1px;
+    color: var(--text-light); line-height: 1.8; margin-bottom: 28px;
+  }
+  .venue-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--red); color: #fff; text-decoration: none;
+    font-family: 'Jost', sans-serif; font-size: 10px; letter-spacing: 4px;
+    text-transform: uppercase; padding: 14px 28px; border-radius: 3px;
+    transition: background .3s, transform .2s;
+  }
+  .venue-btn:hover { background: var(--gold); transform: translateY(-2px); }
+
+  /* ── RSVP ── */
+  #rsvp-section { background: var(--beige-mid); max-width: 100%; padding: 100px 24px; }
+  .rsvp-card {
+    max-width: 480px; margin: 0 auto; background: #fff;
+    border: 1px solid var(--beige-dark); border-radius: 6px; padding: 52px 44px;
+    text-align: center; box-shadow: 0 20px 60px rgba(45,90,61,.06);
+  }
+  .rsvp-hearts-row {
+    display: flex; justify-content: center; gap: 10px;
+    margin-bottom: 28px;
+  }
+  .rsvp-hearts-row span {
+    font-size: 18px; color: var(--gold); opacity: 0;
+    animation: heartPop .4s forwards;
+  }
+  .rsvp-hearts-row span:nth-child(1) { animation-delay: .1s; }
+  .rsvp-hearts-row span:nth-child(2) { animation-delay: .25s; }
+  .rsvp-hearts-row span:nth-child(3) { animation-delay: .4s; }
+  @keyframes heartPop {
+    0%   { opacity: 0; transform: scale(0) rotate(-20deg); }
+    70%  { transform: scale(1.3) rotate(5deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  }
+  .rsvp-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px; font-weight: 300; color: var(--text); margin-bottom: 10px;
+  }
+  .rsvp-sub {
+    font-size: 13px; letter-spacing: 1px; line-height: 1.8;
+    color: var(--text-light); margin-bottom: 36px;
+  }
+  .rsvp-link-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--red); color: #fff; text-decoration: none;
+    font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400;
+    letter-spacing: 4px; text-transform: uppercase;
+    padding: 18px 36px; border-radius: 3px;
+    transition: background .3s, transform .2s, box-shadow .3s;
+    box-shadow: 0 8px 24px rgba(45,90,39,.25);
+  }
+  .rsvp-link-btn:hover {
+    background: var(--gold); transform: translateY(-3px);
+    box-shadow: 0 14px 36px rgba(200,168,75,.35);
+  }
+  .rsvp-deadline {
+    font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--text-light); margin-top: 20px; opacity: .7;
+  }
+
+  /* ── FOOTER WITH COLLECTED HEARTS ── */
+  footer {
+    background: #1a2617; color: #e8ede4;
+    text-align: center; padding: 80px 24px 60px;
+    position: relative; overflow: hidden;
+  }
+  .footer-hearts-canvas {
+    position: absolute; inset: 0; pointer-events: none; overflow: hidden;
+  }
+  /* Many tiny collected hearts at bottom */
+  .footer-heart-pile {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 100px;
+    display: flex; align-items: flex-end;
+    justify-content: center; flex-wrap: wrap; gap: 2px;
+    padding: 0 20px 8px;
+  }
+  .fhp {
+    font-size: 12px; color: var(--red);
+    opacity: 0;
+    animation: settlePile .5s forwards;
+    display: inline-block;
+  }
+  @keyframes settlePile {
+    0%   { opacity: 0; transform: translateY(-40px) scale(0.5) rotate(-30deg); }
+    60%  { transform: translateY(4px) scale(1.1) rotate(5deg); opacity: 1; }
+    100% { transform: translateY(0) scale(1) rotate(0deg); opacity: .85; }
+  }
+  /* Floating hearts in upper footer */
+  .footer-float-heart {
+    position: absolute;
+    font-size: 10px; color: var(--red-muted);
+    opacity: 0; pointer-events: none;
+    animation: floatUp 4s ease-in forwards infinite;
+  }
+  @keyframes floatUp {
+    0%   { opacity: 0; transform: translateY(0) scale(0.8); }
+    20%  { opacity: .6; }
+    100% { opacity: 0; transform: translateY(-120px) scale(1.2); }
+  }
+  .footer-names {
+    font-family: 'Libre Baskerville', 'Baskerville', serif;
+    font-size: 38px; font-weight: 400; font-style: italic;
+    margin-bottom: 16px; position: relative; z-index: 2;
+    color: #f0f5ec;
+  }
+  .footer-big-heart {
+    font-size: 36px; color: var(--gold); display: block;
+    margin: 0 auto 16px;
+    animation: heartBeat 1.5s ease-in-out infinite;
+    position: relative; z-index: 2;
+    color: var(--gold) !important;
+  }
+  @keyframes heartBeat {
+    0%, 100% { transform: scale(1); }
+    14%  { transform: scale(1.2); }
+    28%  { transform: scale(1); }
+    42%  { transform: scale(1.15); }
+    70%  { transform: scale(1); }
+  }
+  .footer-note {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: rgba(255,255,255,.4); position: relative; z-index: 2;
+  }
+  .footer-divider {
+    width: 40px; height: 1px; background: var(--gold);
+    margin: 18px auto; position: relative; z-index: 2;
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity .8s, transform .8s;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <div class="ring"></div>
+  <div class="ring"></div>
+  <div class="ring"></div>
+  <!-- Hearts injected by JS -->
+
+  <p class="hero-tag">You are cordially invited to celebrate</p>
+  <h1 class="hero-names">
+    Varun
+    <span class="hero-amp">&amp;</span>
+    Supritha
+  </h1>
+  <div class="hero-divider"></div>
+  <p class="hero-date">Monday, the Thirty-First of August, 2026</p>
+  <p class="hero-venue">The Palace House · ECR, Chennai</p>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+
+<!-- ══ SAVE THE DATE ══ -->
+<section id="date-section">
+  <p class="section-label reveal">Save the Date</p>
+  <h2 class="section-title reveal">Mark Your Calendar</h2>
+  <div class="thin-line reveal"></div>
+  <div class="date-cards">
+    <div class="date-card">
+      <span class="dc-num">31</span>
+      <span class="dc-unit">Day</span>
+      <span class="dc-name">Monday</span>
+    </div>
+    <div class="date-card">
+      <span class="dc-num">08</span>
+      <span class="dc-unit">Month</span>
+      <span class="dc-name">August</span>
+    </div>
+    <div class="date-card">
+      <span class="dc-num">26</span>
+      <span class="dc-unit">Year</span>
+      <span class="dc-name">Two Thousand</span>
+    </div>
+    <div class="date-card">
+      <span class="dc-num">6</span>
+      <span class="dc-unit">o'clock</span>
+      <span class="dc-name">Evening</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ COUNTDOWN ══ -->
+<div id="countdown-section">
+  <section style="max-width:860px;margin:0 auto;padding:0 24px;">
+    <p class="section-label reveal">Days Until Forever</p>
+    <h2 class="section-title reveal">The Big Day Approaches</h2>
+    <div class="countdown-grid">
+      <div class="cd-box"><span class="cd-num" id="cd-days">00</span><span class="cd-label">Days</span></div>
+      <div class="cd-box"><span class="cd-num" id="cd-hrs">00</span><span class="cd-label">Hours</span></div>
+      <div class="cd-box"><span class="cd-num" id="cd-min">00</span><span class="cd-label">Minutes</span></div>
+      <div class="cd-box"><span class="cd-num" id="cd-sec">00</span><span class="cd-label">Seconds</span></div>
+    </div>
+  </section>
+</div>
+
+
+<!-- ══ VENUE ══ -->
+<section id="venue-section">
+  <p class="section-label reveal">Where to Find Us</p>
+  <h2 class="section-title reveal">The Venue</h2>
+  <div class="thin-line reveal"></div>
+  <div class="venue-card reveal">
+    <div class="venue-icon">✦</div>
+    <h3 class="venue-name">The Palace House</h3>
+    <p class="venue-address">East Coast Road (ECR), Chennai<br>Tamil Nadu, India</p>
+    <a class="venue-btn" href="https://maps.app.goo.gl/sVc9q7t8igvxkU8h8" target="_blank" rel="noopener">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      Get Directions
+    </a>
+  </div>
+</section>
+
+
+<!-- ══ RSVP ══ -->
+<div id="rsvp-section" style="background: var(--beige-mid);">
+  <section style="max-width:860px;margin:0 auto;padding:0 24px;">
+    <p class="section-label reveal">Kindly Reply</p>
+    <h2 class="section-title reveal">RSVP</h2>
+    <div class="thin-line reveal"></div>
+
+    <div class="rsvp-card reveal">
+      <div class="rsvp-hearts-row">
+        <span>♥</span><span>♥</span><span>♥</span>
+      </div>
+      <h3 class="rsvp-title">Will you join us?</h3>
+      <p class="rsvp-sub">We would love to have you celebrate<br>this special day with us.</p>
+      <a class="rsvp-link-btn"
+         href="https://docs.google.com/forms/d/e/1FAIpQLSeZq073-JoZ8PPnHWJ4HxpLAXl8T1WPcom1N8lFKoIGnF-G_A/viewform"
+         target="_blank" rel="noopener">
+        ♥ &nbsp; Send Your RSVP
+      </a>
+      <p class="rsvp-deadline">Please respond by 31st July, 2026</p>
+    </div>
+  </section>
+</div>
+
+
+<!-- ══ FOOTER ══ -->
+<footer id="footer">
+  <div class="footer-hearts-canvas" id="footerCanvas">
+    <!-- Float hearts & pile injected by JS -->
+  </div>
+
+  <span class="footer-big-heart" id="footerBigHeart">♥</span>
+  <p class="footer-names">Varun &amp; Supritha</p>
+  <div class="footer-divider"></div>
+  <p class="footer-note">31 August 2026 &nbsp;·&nbsp; The Palace House, ECR, Chennai</p>
+  <p class="footer-note" style="margin-top:10px;font-size:10px;opacity:.3;">Made with love &amp; devotion</p>
+</footer>
+
+
+<script>
+  /* ── FALLING HEARTS on HERO ── */
+  const heroEl = document.getElementById('hero');
+  const heartChars = ['♥', '♡', '♥', '♥', '♡'];
+  for (let i = 0; i < 22; i++) {
+    const h = document.createElement('div');
+    h.className = 'heart';
+    h.textContent = heartChars[i % heartChars.length];
+    h.style.cssText = `
+      left: ${Math.random() * 100}%;
+      font-size: ${10 + Math.random() * 12}px;
+      animation-duration: ${7 + Math.random() * 9}s;
+      animation-delay: ${Math.random() * 14}s;
+      opacity: ${0.3 + Math.random() * 0.4};
+      color: ${Math.random() > 0.5 ? 'var(--red)' : 'var(--gold)'};
+    `;
+    heroEl.appendChild(h);
+  }
+
+  /* ── COUNTDOWN ── */
+  const weddingDate = new Date('2026-08-31T18:00:00');
+  function updateCD() {
+    const diff = weddingDate - new Date();
+    if (diff <= 0) {
+      ['cd-days','cd-hrs','cd-min','cd-sec'].forEach(id => document.getElementById(id).textContent = '00');
+      return;
+    }
+    document.getElementById('cd-days').textContent = String(Math.floor(diff / 86400000)).padStart(2,'0');
+    document.getElementById('cd-hrs').textContent  = String(Math.floor((diff % 86400000) / 3600000)).padStart(2,'0');
+    document.getElementById('cd-min').textContent  = String(Math.floor((diff % 3600000) / 60000)).padStart(2,'0');
+    document.getElementById('cd-sec').textContent  = String(Math.floor((diff % 60000) / 1000)).padStart(2,'0');
+  }
+  updateCD(); setInterval(updateCD, 1000);
+
+  /* ── SCROLL REVEAL ── */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: .15 });
+  document.querySelectorAll('.reveal, .date-card').forEach(el => observer.observe(el));
+
+  /* ── FOOTER HEARTS ── */
+  const footerEl = document.getElementById('footer');
+  const canvas   = document.getElementById('footerCanvas');
+  let footerAnimated = false;
+
+  const footerObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting && !footerAnimated) {
+        footerAnimated = true;
+        buildFooterHearts();
+      }
+    });
+  }, { threshold: .1 });
+  footerObserver.observe(footerEl);
+
+  function buildFooterHearts() {
+    // 1. Floating hearts drifting upward from bottom
+    for (let i = 0; i < 14; i++) {
+      const fh = document.createElement('div');
+      fh.className = 'footer-float-heart';
+      fh.textContent = Math.random() > 0.5 ? '♥' : '♡';
+      fh.style.cssText = `
+        left: ${5 + Math.random() * 90}%;
+        bottom: ${10 + Math.random() * 40}%;
+        font-size: ${8 + Math.random() * 10}px;
+        animation-delay: ${Math.random() * 3}s;
+        animation-duration: ${3 + Math.random() * 3}s;
+        animation-iteration-count: infinite;
+        color: ${Math.random() > 0.5 ? 'var(--red)' : 'var(--gold)'};
+      `;
+      canvas.appendChild(fh);
+    }
+
+    // 2. Pile of collected hearts at very bottom — staggered settle
+    const pile = document.createElement('div');
+    pile.className = 'footer-heart-pile';
+    const totalPile = 55;
+    for (let i = 0; i < totalPile; i++) {
+      const ph = document.createElement('span');
+      ph.className = 'fhp';
+      ph.textContent = Math.random() > 0.3 ? '♥' : '♡';
+      const sizes = [10, 12, 14, 16, 10, 12];
+      ph.style.cssText = `
+        font-size: ${sizes[i % sizes.length]}px;
+        animation-delay: ${0.05 * i + Math.random() * 0.3}s;
+        color: ${Math.random() > 0.4 ? 'var(--red)' : 'var(--gold)'};
+        opacity: ${0.6 + Math.random() * 0.4};
+      `;
+      pile.appendChild(ph);
+    }
+    canvas.appendChild(pile);
+  }
+</script>
+</body>
+</html>
